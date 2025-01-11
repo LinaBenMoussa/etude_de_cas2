@@ -29,8 +29,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 sshagent(credentials: ['vagrant_ssh']) {
-                    sh "ssh-keyscan -H 192.168.56.102 >> ~/.ssh/known_hosts"
-                    sh "ssh -o StrictHostKeyChecking=no vagrant@192.168.56.102 'sudo docker-compose -f docker-compose.yml up -d'"
+                    sh "ssh-keyscan -H 192.168.1.22 >> ~/.ssh/known_hosts"
+                    sh "ssh -o StrictHostKeyChecking=no vagrant@192.168.1.22 'sudo docker-compose -f docker-compose.yml up -d'"
                 }
             }
         }
