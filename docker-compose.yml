@@ -1,0 +1,44 @@
+
+
+
+version: '3.7'
+
+services:
+  # Service pour l'application Angular
+  angular:
+    build:
+      context: ./angular-14-client
+    ports:
+      - "80:80"
+    networks:
+      - test-network
+
+  # Service pour l'application Spring Boot
+  springboot:
+    build:
+      context: ./spring-boot-server
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/testdb
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    networks:
+      - test-network
+
+  # Service pour MySQL
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: testdb
+    ports:
+      - "3307:3306"
+    networks:
+      - test-network
+
+networks:
+  test-network:
+    driver: bridge
