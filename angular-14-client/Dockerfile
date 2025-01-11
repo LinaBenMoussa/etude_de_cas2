@@ -14,7 +14,7 @@ RUN npm run build --prod
 
 FROM nginx:alpine
 
-COPY --from=build /app/dist/ /usr/share/nginx/html
+COPY --from=build /app/dist/angular-14-crud-example /usr/share/nginx/html
 
 EXPOSE 80
 
